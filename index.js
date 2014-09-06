@@ -1,9 +1,9 @@
-setInterval(function(){
-  console.log('world!');
-}, 1000);
-console.log('hello');
+/*jslint node : true */
+var fs = require('fs');
 
-process.on('SIGINT', function() {
-  console.log('Got SIGINT. Terminating.');
-  process.exit(0);
+fs.readFile('data.json', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err.message);
+  }
+  console.log(data);
 });
