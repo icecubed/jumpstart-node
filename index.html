@@ -59,19 +59,121 @@
 	                <p style="text-align: left;margin-left: 300;">}</p>
 	                <br>
 	            </section>
+				<section class="present" style="top: -326.5px; display: block;">
+	                <h2>Code</h2>
+	                <b>Code</b> for this workshop can be found on github:
+	                <br><br>
+	                <h3><a href="https://github.com/icecubed/jumpstart-node">https://github.com/icecubed/jumpstart-node</a></h3>
+	                <br><br>
+	                <h2>Slides</h2>
+	                You can also find slides here:
+	                <br><br>
+	                <h3><a href="http://icecubed.github.io/jumpstart-node/">http://icecubed.github.io/jumpstart-node/</a></h3>
+	            </section>
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
+	            <section>
+					<h1>NODE.JS!</h1>
+					<h3>Whats the big deal?</h3>					
 				</section>
 
+				<section>
+	                <h2>Cool things that Node is</h2>
+	                    <ul>
+	                      <li> Server-side Javascript</li>	                      
+	                      <li> Non blocking I/O</li>
+	                      <li> Event-driven</li>
+	                      <li> <em>Fast</em> and <em>Efficient</em></li>
+	                    </ul>
+	            </section>
+
+	            <section>
+	              <h2>Server-side JavaScript</h2>
+	              <br>	              
+	              <img src="http://i.imgur.com/3BtRQc0.jpg"></img>
+	            </section>
+
+	            <section>
+	              <h1>Advantages to JS</h1>
+	              <br><ul>
+	                  <li>Familiar</li>
+	                  <li>Low barrier to entry</li>	                  
+	              	  <li>Event driven and async nativly</li>
+	              	  <li>Team Redundancy (Front-end devs and back-end devs speak the same language)</li>
+	              </ul>
+	            </section>
+
+	            <section>
+	              <h3>This means you can...</h3>
+	              <br>
+	              <img src="./images/write_all_the_code_in_javascript1.jpg"></img>
+	            </section>
+
+	            <section>
+	            	<h2> Non blocking I/O</h2>
+	            </section>
+
+	            <section>
+	            	Usual code to do some I/O
+	            	<br><br>
+	            	<pre><code class="javascript">
+		              apples = db.query('get apples');
+		              res.send(apples);
+	                </code></pre>
+	            </section>
+
+				<section>
+					<h3>Traditional servers</h3>
+					<img src="./images/threaded-web-server.png" alt="Threaded web server">					
+				</section>
+
+				<section>
+	            	I/O in node.js
+	            	<br><br>
+	            	<pre><code class="javascript">
+		            db.query('get apples', 
+		              function(apples){
+		                res.send(apples);
+		          	  }
+		          	);		              
+	                </code></pre>
+	            </section>
+
+				<section>
+					<h3>Node.js</h3>
+					<img src="./images/node-async-event-loop.png" alt="node async server">					
+				</section>
+
+				<section>
+		            <h2>Let's talk <em>speed</em></h2>
+		            <br>
+		            <h3>Node.js was designed for highly-concurrent network applications</h3>
+		            <h4>(Read: scalable web apps, among other things)</h4>
+	            </section>
+
+	            <section data-background="./images/v8-logo.png"  data-background-size="80%">
+	                <h1 style="color:black">Fast</h1>
+	                <br>
+	                <br>
+	                <h3 style="color:black">Node uses the V8 JavaScript engine powering Google Chrome</h3><br>
+	                <h3 style="color:black">This means lightning fast JavaScript execution</h3>
+	            </section>
+
+	            <section>
+	                <h1>Efficient</h1>
+	                <h2>Node.js is <em>asynchronous</em> and <em>event-driven</em></h2>
+	                <br>
+	                <p>This means you have to think a bit differently, you have to think like a JavaScript dev ;)</p>
+	            </section>
+
+	            <section data-background="./images/event-loop-1.png" data-background-size="70%"/>
+	            </section>
+
+	            <section data-background="./images/event-loop-2.png"  data-background-size="70%"/>
+	            </section>
+
+	            <section data-background="./images/event-loop-3.png"  data-background-size="70%"/>
+	            </section>
+				
 			</div>
 
 		</div>
