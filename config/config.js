@@ -1,3 +1,4 @@
+/*jslint node : true */
 var config = {
   port: 3000
 };
