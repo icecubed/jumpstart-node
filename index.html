@@ -182,6 +182,8 @@
 	            <section>
 	            	<section>
 	            		<h1> Basics </h1>
+	            		<br>
+	            		<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
 	            	</section>
 	            	<section>
                         <h2>Interactive Mode</h2>
@@ -226,6 +228,606 @@
                         </ul>
                     </section>
 	            </section>
+
+	            <section>
+	            	<img src="http://i.imgur.com/rXT8ims.jpg">
+	            </section>
+	            
+	            <section>
+	            	<img src="http://i.imgur.com/Tun0Gnn.jpg">
+	            </section>
+
+	            <section>
+	            	<h3>Lets do something practical. </h3>
+	            </section>
+
+	            <section>
+	            	<section>
+	            		<h1>Part 1</h1>
+	            		<h2>Express.js</h2>
+	            		<br>
+	            		<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+	            	</section>
+	            	<section>
+		                <h2>Express</h2>
+		                <h3>A lightweight web framework for Node.js</h3>
+		            </section>
+
+		            <section>
+		                <h2>three files, 17 lines of code</h2>
+		                <h3>app.js, package.json, README.md</h3>
+		            </section>
+
+		            <section>
+		                <h2>Step 1: Create package.json:</h2>
+		                <small>* - Watch for spaces in "name". Express doesn't like them.</small>
+		                <pre><code class="json">
+		                    {
+		                      "name": "Express-Basic-Tutorial",
+		                      "description": "I'm learning nodejs express!",
+		                      "version": "0.0.1",
+		                      "private": true,
+		                      "dependencies": {
+		                        "express": "4.4.0"
+		                      }
+		                    }
+		                </code></pre>
+
+		                <h3>Hint</h3> To find the latest available version of a module
+		                <pre><code class="bash">
+		                    $ npm info express version
+		                </code></pre>
+		                Or you can simply say
+		                <pre><code class="json">
+		                    "express": "*"
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>Step 2: Create README.md</h2>
+		                <small>This file needs some content for Express to be happy.</small>
+		                <pre><code class="markdown">
+		                    # Meet My App
+		                    App, audience. Audience, app.
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>Step 3: <strike>Profit</strike> Create app.js</h2>
+		                <pre><code class="javascript">
+		                    var express = require('express');
+		                    var app = express();
+
+		                    app.get('/', function(req,res){
+		                        res.send("hi there");
+		                    });
+
+		                    var server = app.listen(3000, function(){
+		                        console.log("Listening on 3000");
+		                    });
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>Step 4: Install your dependencies</h2>
+		                <pre><code class="bash">
+		                    $ npm install
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>Step 5: Run it</h2>
+		                <pre><code class="bash">
+		                    $ node app.js
+		                    Listening on 3000
+		                </code></pre>
+		                <h4>and visit</h4>
+		                <h2>http://localhost:3000</h2>
+
+		                
+		            </section>
+
+		            <section>
+		                <h2>That was easy..</h2>
+		            </section>
+
+	            </section>
+
+	            <section>
+	            	<section>
+		                <h2>Part 2</h2>
+		                <h3>Advanced Express</h3>
+		                (ooooooooh...)
+		            </section>
+
+		            <section>
+		                <h2>Surely, Express can do more</h2>
+		                <h3>Yes, it can. And with a little help.</h3>
+		                
+		            </section>
+
+		            <section>
+		                <h2>Express Generator</h2>
+		                <pre><code class="bash">
+		// install express generator
+		$ npm install -g express-generator
+
+		// create a new web application using ejs as the templating engine
+		$ express -e ejs myapp
+
+		                </code></pre>
+		            </section>
+		            <section>
+		                <h3>and visit http://localhost:3000</h3>
+
+		                <img src="images/act2part2_begin1_screenshot.png" />
+
+		                <p>checkpoint: git checkout -f step-ea-01</p>
+		            </section>
+
+		            <section>
+		                <h2>visite du code</h2>
+		            </section>
+
+		            <section>
+		              <h2>app.js</h2>
+		              <pre><code>
+		var express = require('express');
+		var path = require('path');
+		var favicon = require('static-favicon');
+		var logger = require('morgan');
+		var cookieParser = require('cookie-parser');
+		var bodyParser = require('body-parser');
+
+		var routes = require('./routes/index');
+		var users = require('./routes/users');
+
+		var app = express();
+
+		// view engine setup
+		app.set('views', path.join(__dirname, 'views'));
+		app.set('view engine', 'ejs');
+
+		app.use(favicon());
+		app.use(logger('dev'));
+		app.use(bodyParser.json());
+		app.use(bodyParser.urlencoded());
+		app.use(cookieParser());
+		app.use(express.static(path.join(__dirname, 'public')));
+
+		app.use('/', routes);
+		app.use('/users', users);
+
+		/// catch 404 and forward to error handler
+		app.use(function(req, res, next) {
+		    var err = new Error('Not Found');
+		    err.status = 404;
+		    next(err);
+		});
+
+		/// error handlers
+
+		// development error handler
+		// will print stacktrace
+		if (app.get('env') === 'development') {
+		    app.use(function(err, req, res, next) {
+		        res.status(err.status || 500);
+		        res.render('error', {
+		            message: err.message,
+		            error: err
+		        });
+		    });
+		}
+
+		// production error handler
+		// no stacktraces leaked to user
+		app.use(function(err, req, res, next) {
+		    res.status(err.status || 500);
+		    res.render('error', {
+		        message: err.message,
+		        error: {}
+		    });
+		});
+
+
+		module.exports = app;
+		              </code></pre>
+		            </section>
+
+		            <section>
+		              <h2>/bin/www</h2>
+		              <h3>bash script, includes app.js, runs server</h3>
+		              <h4>This is executed from within package.json..</h4>
+		              <pre><code>
+		#!/usr/bin/env node
+		var debug = require('debug')('newapp');
+		var app = require('../app');
+
+		app.set('port', process.env.PORT || 3000);
+
+		var server = app.listen(app.get('port'), function() {
+		  debug('Express server listening on port ' + server.address().port);
+		});
+		              </code></pre>
+		            </section>
+
+		            <section>
+		              <h2>package.json</h2>
+		              <h3>same old package.json</h3>
+		              <pre class="stretch"><code>
+		{
+		  "name": "newapp",
+		  "version": "0.0.1",
+		  "private": true, // disallows npm from publishing
+		  "scripts": {
+		    "start": "node ./bin/www" // you know this guy
+		  },
+		  "dependencies": {
+		    "express": "~4.2.0",
+		    "static-favicon": "~1.0.0",
+		    "morgan": "~1.0.0",
+		    "cookie-parser": "~1.0.1",
+		    "body-parser": "~1.0.0",
+		    "debug": "~0.7.4",
+		    "ejs": "~0.8.5"
+		  }
+		}
+		              </code></pre>
+		            </section>
+
+		            <section>
+		              <h2>/views/*.ejs</h2>
+		              <h3>example: index.ejs</h3>
+		              <h3>Note the &lt;%= .. %&gt; server tags</h3>
+		              <pre><code>
+		&lt;!DOCTYPE html&gt;
+		&lt;html&gt;
+		  &lt;head&gt;
+		    &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
+		    &lt;link rel='stylesheet' href='/stylesheets/style.css' /&gt;
+		  &lt;/head&gt;
+		  &lt;body&gt;
+		    &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt;
+		    &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt;
+		  &lt;/body&gt;
+		&lt;/html&gt;
+		              </code></pre>
+		            </section>
+
+		            <section>
+		              <h2>/routes/*.js</h2>
+		              <h3>These are akin to controllers in MVC</h3>
+		              <h3>A route handler (callback) is associated with a request path</h3>
+		              <pre><code>
+		var express = require('express');
+		var router = express.Router();
+
+		/* GET home page. */
+		router.get('/', function(req, res) {
+		  res.render('index', { title: 'Express' });
+		});
+
+		module.exports = router;
+		              </code></pre>
+		            </section>
+
+		            <section>
+		              <h2>/public/stylesheets</h2>
+		              <h2>/public/javascripts</h2>
+		              <h2>/public/images</h2>
+		            </section>
+
+		            <section>
+		                <h2>Don't we need a database and models?</h2>
+		                <h3>Yes. We'll do that.</h3>
+		                <h3>But before we get into data and models, let's get familiar..</h3>
+		            </section>
+
+		            <section>
+		                <h2>Write a new view</h2>
+		                <h3>at /views/visits.ejs:</h3>
+		                <pre><code class="html">
+		    &lt;!DOCTYPE html&gt;
+		    &lt;html&gt;
+		      &lt;head&gt;
+		        &lt;title&gt;Page Visits&lt;/title&gt;
+		        &lt;link rel='stylesheet' href='/stylesheets/style.css' /&gt;
+		      &lt;/head&gt;
+		      &lt;body&gt;
+		        &lt;h1&gt;Hi, <%= my_name %>&lt;/h1&gt;
+		        &lt;em&gt;we'll fill this in a minute..&lt;/em&gt;
+		      &lt;/body&gt;
+		    &lt;/html&gt;</code></pre>
+		                Again, note the &lt;%= .. %&gt;. This is data that will be filled in via ejs, and that data will come from our route handler.
+		            </section>
+
+		            <section>
+		                <h2>Write a route</h2>
+		                <h3>at /routes/visits.js:</h3>
+		                <pre><code class="javascript">
+		            var express = require('express');
+		            var router = express.Router();
+
+		            router.get('/', function(req, res) {
+		              res.render('visits', { my_name: "Joel" }); // -- find our view
+		            });
+
+		            module.exports = router;
+		                </code></pre>
+		                We provide data to the ejs templating engine in our render() call.
+		            </section>
+
+		            <section>
+		                <h2>Hook up requests with the route</h2>
+		                <h3>in app.js:</h3>
+		                <pre><code class="javascript">
+		            ...
+		            var routes = require('./routes/index');
+		            var users = require('./routes/users');
+		            var visits = require('./routes/visits'); // -- the route
+		            ...
+		            app.use('/', routes);
+		            app.use('/users', users);
+		            app.use('/visits', visits); // -- the request assignment
+		            ...
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>restart your server and check out</h3>
+		                <h2>http://localhost:3000<b>/visits</b></h2>
+		                <img src="images/act2part2_begin2_screenshot.png" />
+		                <p>checkpoint: git checkout -f step-ea-02</p>
+		            </section>
+
+		            <section>
+		                <h3>Right, back to the database and models</h3>
+		            </section>
+
+		            <section>
+		                <h2>First, add a bit to package.json for the mongo dependency</h2>
+		                <pre><code class="json">
+		                   ...
+		                    "debug": "~0.7.4",
+		                    "ejs": "~0.8.5",
+		                    "mongoose": "3.8.12"
+		                  }
+		                }
+		                </code></pre>
+		                <h3>and install</h3>
+		                <pre><code class="bash">
+		                    $ npm install
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>Create a new folder and file, /models/visit.js</h2>
+		                <pre><code class="javascript">
+		                var mongoose = require('mongoose')
+		                   ,Schema = mongoose.Schema
+		                   ,ObjectId = Schema.ObjectId;
+
+		                var visitSchema = new Schema({
+		                    thread: ObjectId,
+		                    date: {type: Date, default: Date.now},
+		                    user_agent: {type: String, default: 'none'}
+		                });
+
+		                module.exports = mongoose.model('Visit', visitSchema);
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>And use that model to write data to mongo in app.js</h3>
+		                <pre class="stretch"><code class="javascript">
+		...
+		// -- this can go near the top
+		var mongoose = require('mongoose');
+		mongoose.connect('mongodb://localhost/myapp');
+		...
+		// -- bunch this with the other requires
+		var Visit = require("./models/visit.js");
+		...
+		// -- we run some code inline with each request - a new request decorator
+		// -- put this before the route handlers
+		app.use(function(req, res, next){
+		    new Visit({user_agent: req.headers['user-agent']}).save();
+		    next();
+		});
+
+		app.use('/', routes);
+		app.use('/users', users);
+		app.use('/visits', visits); // -- the request assignment
+		...
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>careful</h2>
+		                <h3>Now that our app will try to talk to a database, that database will need to be running</h3>
+		                <pre><code class="bash">
+		                    # in a Mac OS X terminal
+		                    $ mongod --config /usr/local/etc/mongod.conf
+
+		                    # in Ubuntu
+		                    $ mongod --config /etc/mongodb.conf
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>restart your server and check out</h3>
+		                <h2>http://localhost:3000<b>/visits</b></h2>
+		                <p>checkpoint: git checkout -f step-ea-03</p>
+		            </section>
+
+		            <section>
+		                <h2>I'm writing to a database, but I can't see my data!</h2>
+		                <img src="images/drwho.gif" />
+		                <h3>Let's fix that.</h3>
+		            </section>
+
+		            <section>
+		                <h3>Modify the route visits.js to fetch the data</h3>
+		                <h4>Don't forget to pass visits to your view!</h4>
+		                <pre class="stretch"><code class="javascript">
+		...
+		var Visit = require("../models/visit.js"); // -- new require
+
+		router.get('/', function(req, res) {
+
+		  var query = Visit.find(); // -- only creating a query object
+		  query.sort({date: -1}); // -- no execution here
+
+		  // -- we still have a render() call
+		  // -- but it is now in the callback to our database query execution
+		  query.exec(function(err, visits){
+		    // -- also note we are passing the results of our query to ejs
+		    res.render('visits', { my_name: "Joel", visits: visits });
+		  });
+		});
+		...
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h2>And modify the view visits.ejs to render data</h2>
+		                <pre><code class="html">
+		            ..
+		            &lt;h1&gt;Hi, <% my_name %>&lt;/h1&gt;
+		            &lt;h2&gt;Look who's visiting your site!&lt;/h2&gt;
+		            &lt;% for(var v in visits){ %&gt;
+		              &lt;p&gt;&lt;%- visits[v].user_agent %&gt;&lt;/p&gt;
+		            &lt;% } %&gt;
+		            ..
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>restart your server and check out</h3>
+		                <h2>http://localhost:3000<b>/visits</b></h2>
+		                (keep refreshing, you'll see it)
+		                <img src="images/act2part2_begin4_screenshot.png" />
+		                <p>checkpoint: git checkout -f step-ea-04</p>
+		            </section>
+
+		            <section>
+		                <h2>Socket.IO</h2>
+		                <h3>The final frontier</h3>
+		                (cue music)
+		            </section>
+
+		            <section>
+		                <h2>Firstly, what is Socket.IO?</h2>
+		                <h3>A Node JS module which provides bi-directional socket communication between client and server</h3>
+		            </section>
+
+		            <section>
+		                <h2>What makes it different from regular web traffic over port 80?</h2>
+		                <h3>Socket.IO establishes a <b style='color:00c0c0;'>persistent</b> open socket over which <b style='color:00c0c0;'>both server and client</b> can freely initiate communicate with each other</h3>
+		            </section>
+
+		            <section>
+		                <h2>What does Socket.IO have to do with Express?</h2>
+		                <h3>Socket.IO is its own thing, and neither Socket.IO nor Express need each other. But Socket.IO integrates with Express so easily that we just had to show it.</h3>
+		            </section>
+
+		            <section>
+		                <h2>Let's try it</h2>
+		                <h3>First, set up your dependency</h3>
+		                <pre><code class="json">
+		                    ...
+		                        "debug": "~0.7.4",
+		                        "ejs": "~0.8.5",
+		                        "mongoose": "3.8.12",
+		                        "socket.io": "1.0.3"
+		                      }
+		                    }
+		                </code></pre>
+		                <h3>And install</h3>
+		                <pre><code class="bash">
+		                    $ npm install
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>Socket.IO runs as its own server, alongside our Express app</h3>
+		                <p>Put this snippet near the top of app.js, after 'app' is defined.</p>
+		                <pre><code class="javascript">
+		                    var server = require('http').createServer(app);
+		                    var io = require('socket.io').listen(server);
+		                    server.listen(3001);
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>We define "endpoints", or "namespaces" for the server, much like routes.</h3>
+		                <p>Here, '/chat' is the namespace.</p>
+		                <p>Put this snippet somewhere after 'io' is defined in app.js.</p>
+		                <pre><code class="javascript">
+		            var chat = io.of('/chat').on('connection', function(socket){
+		                socket.on('chat', function(data){
+		                    data.color = 'green';
+		                    socket.emit('chat', data);
+		                    data.color = 'red';
+		                    socket.broadcast.emit('chat', data);
+		                });
+		            });
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>This is just an HTML form, which will help us interact with the server from the client</h3>
+		                <p>This snippet goes in index.ejs somewhere in the BODY tag..</p>
+		                <pre><code class="html">
+		        &lt;div id="chatlog" style="height: 200px;overflow-y:scroll;"&gt;&lt;/div&gt;
+		        &lt;textarea id="chatwindow" cols="30" rows="10"&gt;&lt;/textarea&gt;
+		        &lt;input id="send_chat" type="submit" value="Send" /&gt;
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>Also in index.ejs in the HEAD tag we'll put our client-side javascript, which connects to, reacts to, and sends messages to the server</h3>
+
+		                <pre class="stretch"><code class="html">
+		    &lt;script src="http://localhost:3001/socket.io/socket.io.js"&gt;&lt;/script&gt;
+		    &lt;script src="//code.jquery.com/jquery-1.10.2.min.js"&gt;&lt;/script&gt;
+		    &lt;script type="text/javascript"&gt;
+		        var chat_socket = io.connect('http://localhost:3001/chat');
+
+		        chat_socket.on('chat', function(data){
+		            $("#chatlog")
+		                .append(
+		                    $("&lt;p style='color:" + data.color + ";'&gt;&lt;/p&gt;")
+		                        .text(data.isay)
+		                );
+		        });
+		        $(document).on('click', "#send_chat", function(e){
+		            chat_socket.emit('chat', {isay: $("#chatwindow").val()});
+		            $("#chatwindow").val("");
+		        });
+		    &lt;/script&gt;
+		                </code></pre>
+		            </section>
+
+		            <section>
+		                <h3>restart your server and check out</h3>
+		                <h2>http://localhost:3000</h2>
+		            </section>
+		            <section>
+		                <h3>Try opening a few browser windows!</h3>
+		                <div class="stretch">
+		                    <div class="column" style="float: left;margin: 0;width: 50%;">
+		                      <img src="images/act2part2_begin5_screenshota.png" />
+		                    </div>
+		                    <div class="column" style="float: left;margin: 0;width: 50%;">
+		                      <img src="images/act2part2_begin5_screenshotb.png" />
+		                    </div>
+		                </div>
+		                <p>checkpoint: git checkout -f step-ea-05</p>
+		            </section>
+
+	            </section>
+	            
 				
 			</div>
 
